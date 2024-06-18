@@ -1,0 +1,47 @@
+pipeline {
+    agent none
+    stages {
+        stage('Stage 1') {
+            agent any
+            steps {
+                script {
+                    echo 'This stage is blocking the executor because of the "agent any"'
+                }
+            }
+        }
+        stage('Stage 2') {
+            agent none
+            steps {
+                timeout(time: 1, unit: 'MINUTES') {
+                    script {
+                        echo 'This stage does not block an executor because of "agent none"'
+                        milestone 1
+                        try {
+                            inputResponse = input([
+                                message: 'Please confirm.',
+                                submitterParameter: 'submitter',
+                                parameters: [
+                                    [$class: 'BooleanParameterDefinition', defaultValue: true, name: 'param1', description: 'description1'],
+                                    [$class: 'ChoiceParameterDefinition', choices: 'choice1\nchoice2', name: 'param2', description: 'description2']
+                                ]
+                            ])
+                            echo "Input response: ${inputResponse}"
+                        } catch (err) {
+                            echo "Input timeout or aborted."
+                        }
+                        milestone 2
+                    }
+                }
+            }
+        }
+        stage('Stage 3') {
+            agent any
+            steps {
+                script {
+                    echo 'This stage is blocking the executor because of the "agent any"'
+                    sh 'sleep 15'
+                }
+            }
+        }
+    }
+}
