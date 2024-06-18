@@ -1,0 +1,7 @@
+<<<<<<< HEAD
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDGOE4xD0+y9i8pGS/xHnoWftYjFg6w+xlT5IQxUKj2xLJfYUFjC77Bv85DYbEK4jgusw7Gn/WyH7GNhQyKn3jzWA85DF3ZAC+GnqCvgkewwIN7L7u96QFMUnJ0OPM2KOMcgACMLrpqOCtw/PcrCjC8xQUUMzCghLmMm07w1bBMNSq5gRn86KOViv6UpRvHX4fXR7PrNR4hgYZJREvXlik/iGQcZTHmpqqifIrEqRaxHS2qHooqbFZtajYuM2mJ6JQNaI89v/nHNzm362Xf7qxevN3mLkgDmraIkxK/QZTMlW6dj2eIr9RuCH2eQ8XPzPVC4xnlXkoTwbcINmkfkw0ePK3aEc5yklIJAAhfbEnkSVuiB8l9zaK1cjkg2meVZKafZ4PTqhPOFaNM2KxQsd7o7iMljuotuCUaXKnQ3QnSA0yvwi8mSlRPrSN5pcC/Iyp4sYreXs+qlT3qEdfuOt6eWO7W3lfbo5LKZloeKz2Nrf6GRS27VQv2iDG8r3TRoH8= psreddy@DESKTOP-9VT3PO6
+=======
+place your public key here gerenerated from command
+
+ssh-keygen -f oregon-region-key-pair
+>>>>>>> 9e5fbadba839f569e2b9d9f20b6c1f7cf34c3c2e

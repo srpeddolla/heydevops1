@@ -1,0 +1,41 @@
+pipeline {
+    agent none // Agent can only be overwritten if the initial value is 'none'
+    stages {
+        stage('Stage 1') {
+            agent any
+            steps {
+                timeout(time: 1, unit: 'SECONDS') {
+                    waitUntil {
+                        script {
+                            echo 'This stage will execute again and again until timeout is reached then the stage will fail.'
+                            return false
+                        }
+                    }
+                }
+            }
+            post {
+                always { script { echo 'post.stage1.always' } }
+                success { script { echo 'post.stage1.success' } }
+                changed { script { echo 'post.stage1.changed' } }
+                aborted { script { echo 'post.stage1.aborted' } }
+                failure { script { echo 'post.stage1.failure' } }
+            }
+        }
+        stage('Stage 2') {
+            agent any
+            steps {
+                script {
+                    echo 'This stage will execute after Stage 1'
+                    sh 'sleep 5'
+                }
+            }
+        }
+    }
+    post {
+        always { script { echo 'post.always' } }
+        success { script { echo 'post.success' } }
+        changed { script { echo 'post.changed' } }
+        aborted { script { echo 'post.aborted' } }
+        failure { script { echo 'post.failure' } }
+    }
+}

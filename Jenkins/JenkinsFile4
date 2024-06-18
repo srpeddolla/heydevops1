@@ -1,0 +1,71 @@
+pipeline {
+    agent any
+    stages {
+        stage('usernamePassword') {
+            steps {
+                script {
+                    withCredentials([usernamePassword(credentialsId: 'github', usernameVariable: 'username', passwordVariable: 'password')]) {
+                        println 'username=' + username + ', password=' + password
+                        println 'username.collect { it }=' + username.collect { it }
+                        println 'password.collect { it }=' + password.collect { it }
+                    }
+                }
+            }
+        }
+        stage('usernameColonPassword') {
+            steps {
+                script {
+                    withCredentials([usernameColonPassword(credentialsId: 'github', variable: 'userpass')]) {
+                        println 'userpass=' + userpass
+                        println 'userpass.collect { it }=' + userpass.collect { it }
+                    }
+                }
+            }
+        }
+        stage('string (secret text)') {
+            steps {
+                script {
+                    withCredentials([string(credentialsId: 'joke-of-the-day', variable: 'joke')]) {
+                        println 'joke=' + joke
+                        println 'joke.collect { it }=' + joke.collect { it }
+                    }
+                }
+            }
+        }
+        stage('sshUserPrivateKey') {
+            steps {
+                script {
+                    withCredentials([sshUserPrivateKey(credentialsId: 'production-bastion', keyFileVariable: 'keyFile', passphraseVariable: 'passphrase', usernameVariable: 'username')]) {
+                        println 'keyFile=' + keyFile
+                        println 'passphrase=' + passphrase
+                        println 'username=' + username
+                        println 'keyFile.collect { it }=' + keyFile.collect { it }
+                        println 'passphrase.collect { it }=' + passphrase.collect { it }
+                        println 'username.collect { it }=' + username.collect { it }
+                        println 'keyFileContent=' + readFile(keyFile)
+                    }
+                }
+            }
+        }
+        stage('dockerCert') {
+            steps {
+                script {
+                    withCredentials([dockerCert(credentialsId: 'production-docker-ee-certificate', variable: 'DOCKER_CERT_PATH')]) {
+                        println 'DOCKER_CERT_PATH=' + DOCKER_CERT_PATH
+                        println 'DOCKER_CERT_PATH.collect { it }=' + DOCKER_CERT_PATH.collect { it }
+                        println 'DOCKER_CERT_PATH/ca.pem=' + readFile("$DOCKER_CERT_PATH/ca.pem")
+                        println 'DOCKER_CERT_PATH/cert.pem=' + readFile("$DOCKER_CERT_PATH/cert.pem")
+                        println 'DOCKER_CERT_PATH/key.pem=' + readFile("$DOCKER_CERT_PATH/key.pem")
+                    }
+                }
+            }
+        }
+        stage('list credentials ids') {
+            steps {
+                script {
+                    sh 'cat $JENKINS_HOME/credentials.xml | grep "<id>"'
+                }
+            }
+        }
+    }
+}
