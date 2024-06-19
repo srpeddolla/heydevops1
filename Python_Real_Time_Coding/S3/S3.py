@@ -19,4 +19,4 @@ def create_bucket(bucket_name, region=None):
         return False
     return True
 
-create_bucket("singamheydevops","us-west-1")
+create_bucket("srpeddollas","us-west-2")

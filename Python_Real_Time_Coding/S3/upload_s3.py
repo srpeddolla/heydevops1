@@ -17,4 +17,4 @@ def upload_file(file_name, bucket, object_name=None):
         return False
     return True
 
-upload_file("/Users/praveensingampalli/Documents/MIT.pptx","singamheydevops")
+upload_file("D:\heydevops\Session 7 8th June 2024 Python Automations\PYTHONAUTOMATIONS.pdf","srpeddollas")

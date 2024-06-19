@@ -10,6 +10,6 @@ table.update_item(
     },
     UpdateExpression='SET age = :val1',
     ExpressionAttributeValues={
-        ':val1': 26
+        ':val1': 30
     }
 )
