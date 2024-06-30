@@ -1,0 +1,12 @@
+pipeline {
+    agent any
+    stages {
+        stage('Example') {
+            steps {
+                script {
+                    echo "This script is safe and does not expose credentials."
+                }
+            }
+        }
+    }
+}
