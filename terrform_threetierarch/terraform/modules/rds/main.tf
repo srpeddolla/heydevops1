@@ -1,11 +1,11 @@
 # # Create RDS Instance
 
 resource "aws_db_subnet_group" "db-subnet-group" {
-  name       = "db_subnet_group_v2"
-  subnet_ids = var.subnets[*].id
+  name       = "db_subnet_group"
+  subnet_ids = var.subnets.*.id
 
   tags = {
-    Name = "db_subnet_group_v2"
+    Name = "db_subnet_group"
   }
 }
 
@@ -19,7 +19,7 @@ resource "aws_security_group" "rds-sg" {
     from_port       = 3306
     to_port         = 3306
     protocol        = "tcp"
-    security_groups = var.from_sgs[*].id
+    security_groups = var.from_sgs.*.id
   }
 
   egress {
@@ -38,11 +38,7 @@ resource "aws_db_instance" "rds" {
   db_subnet_group_name   = aws_db_subnet_group.db-subnet-group.id
   allocated_storage      = var.allocated_storage
   engine                 = var.engine
-<<<<<<< HEAD
-  engine_version         = "8.0.37"  # Updated version
-=======
   engine_version         = var.engine_version
->>>>>>> c541bbf8e5e4708762ac6ddd6298ce12de337683
   instance_class         = var.instance_class
   multi_az               = var.multi_az
   db_name                = var.db_name

@@ -1,13 +1,9 @@
 resource "aws_lb" "front_end" {
   name               = "front-end-lb"
-<<<<<<< HEAD
   internal           = false
-=======
-  internal           = true
->>>>>>> c541bbf8e5e4708762ac6ddd6298ce12de337683
   load_balancer_type = "application"
   security_groups    = [aws_security_group.alb_presentation_tier.id]
-  subnets            = aws_subnet.public_subnets[*].id
+  subnets            = aws_subnet.public_subnets.*.id
 
   enable_deletion_protection = false
 }
@@ -35,7 +31,7 @@ resource "aws_lb" "application_tier" {
   internal           = true
   load_balancer_type = "application"
   security_groups    = [aws_security_group.alb_application_tier.id]
-  subnets            = aws_subnet.private_subnets[*].id
+  subnets            = aws_subnet.private_subnets.*.id
 
   enable_deletion_protection = false
 }
